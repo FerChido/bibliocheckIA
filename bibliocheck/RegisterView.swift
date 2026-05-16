@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @Environment(AppSession.self) private var session
+    @EnvironmentObject private var session: AppSession
     @Environment(\.dismiss) private var dismiss
 
     @State private var email = ""

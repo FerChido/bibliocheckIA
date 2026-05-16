@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @Environment(AppSession.self) private var session
+    @EnvironmentObject private var session: AppSession
     @State private var email = ""
     @State private var password = ""
     @State private var showPassword = false

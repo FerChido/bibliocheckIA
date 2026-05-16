@@ -3,7 +3,7 @@ import SwiftUI
 // MARK: - Historial
 
 struct AttendanceHistoryView: View {
-    @Environment(AppSession.self) private var session
+    @EnvironmentObject private var session: AppSession
 
     private static let df: DateFormatter = {
         let f = DateFormatter()

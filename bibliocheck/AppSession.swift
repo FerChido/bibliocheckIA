@@ -1,5 +1,5 @@
 import Foundation
-import Observation
+import Combine
 import SwiftData
 
 // MARK: - DTOs (para vistas y reportes)
@@ -128,9 +128,8 @@ final class BiblioTimePunch {
 
 // MARK: - Sesión
 
-@Observable
 @MainActor
-final class AppSession {
+final class AppSession: ObservableObject {
     /// Días por reporte (3 reportes ≈ 45 días ≈ mes y medio).
     static let daysPerPartialReport = 15
     static let partialReportsPerCycle = 3
@@ -143,7 +142,7 @@ final class AppSession {
     let container: ModelContainer
     private let context: ModelContext
 
-    private(set) var currentUserEmail: String?
+    @Published private(set) var currentUserEmail: String?
 
     init() {
         do {

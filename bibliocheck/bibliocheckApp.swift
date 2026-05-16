@@ -8,14 +8,14 @@ struct bibliocheckApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environment(session)
+                .environmentObject(session)
                 .modelContainer(session.container)
         }
     }
 }
 
 struct RootView: View {
-    @Environment(AppSession.self) private var session
+    @EnvironmentObject private var session: AppSession
 
     var body: some View {
         Group {

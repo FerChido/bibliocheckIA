@@ -5,25 +5,34 @@ import UIKit
 // MARK: - Inicio
 
 struct HomeDashboardView: View {
-    @Environment(AppSession.self) private var session
+    @EnvironmentObject private var session: AppSession
     private let blue = Color.blue
     @State private var showScanner = false
     @State private var lastScannedCode: String?
     @State private var scanFeedback: (title: String, message: String)?
+    @State private var showMenu = false
+    @State private var showHelp = false
+    @State private var showAbout = false
 
     var body: some View {
         VStack(spacing: 18) {
             HStack {
-                Image(systemName: "line.horizontal.3")
-                    .font(.title2)
+                Button {
+                    showMenu = true
+                } label: {
+                    Image(systemName: "line.horizontal.3")
+                        .font(.title2)
+                        .foregroundColor(.blue)
+                }
+                .buttonStyle(.plain)
 
                 Spacer()
 
-                Image(systemName: "house.fill")
+                Image(systemName: "person.crop.circle.fill")
                     .font(.title3)
+                    .foregroundColor(.blue)
             }
             .padding(.horizontal)
-            .foregroundColor(.blue)
             .padding(.top, 10)
 
             HStack {
@@ -116,9 +125,9 @@ struct HomeDashboardView: View {
                 lastScannedCode = nil
             }
         }) {
-            QRScannerView { code in
+            QRScannerView(onCode: { code in
                 lastScannedCode = code
-            }
+            })
         }
         .alert(scanFeedback?.title ?? "", isPresented: Binding(
             get: { scanFeedback != nil },
@@ -128,6 +137,30 @@ struct HomeDashboardView: View {
         } message: {
             Text(scanFeedback?.message ?? "")
         }
+        .confirmationDialog("Menú", isPresented: $showMenu, titleVisibility: .visible) {
+            Button("Cerrar sesión", role: .destructive) {
+                session.logout()
+            }
+            Button("Ayuda") {
+                showHelp = true
+            }
+            Button("Acerca de") {
+                showAbout = true
+            }
+            Button("Cancelar", role: .cancel) {}
+        } message: {
+            Text("Opciones rápidas de la aplicación")
+        }
+        .alert("Ayuda", isPresented: $showHelp) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("Aquí puedes ver cómo usar la app y resolver dudas básicas.")
+        }
+        .alert("Acerca de", isPresented: $showAbout) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("BiblioCheck — gestión de entradas y salidas para servicio social.")
+        }
     }
 
     private func formatHours(_ h: Double) -> String {
@@ -135,30 +168,7 @@ struct HomeDashboardView: View {
     }
 }
 
-// MARK: - Quick action
-
-struct QuickAction: View {
-    var icon: String
-    var title: String
-
-    var body: some View {
-        VStack(spacing: 6) {
-            Image(systemName: icon)
-                .font(.title3)
-                .foregroundColor(.blue)
-
-            Text(title)
-                .font(.caption2)
-                .foregroundColor(.black)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 10)
-        .background(Color.gray.opacity(0.08))
-        .cornerRadius(14)
-    }
-}
-
-// MARK: - Escáner QR
+// MARK: - QR Scanner
 
 struct QRScannerView: View {
     @Environment(\.dismiss) private var dismiss
@@ -261,6 +271,29 @@ private struct DataScannerRepresentable: UIViewControllerRepresentable {
                 onDismiss()
             }
         }
+    }
+}
+
+// MARK: - Quick action
+
+struct QuickAction: View {
+    var icon: String
+    var title: String
+
+    var body: some View {
+        VStack(spacing: 6) {
+            Image(systemName: icon)
+                .font(.title3)
+                .foregroundColor(.blue)
+
+            Text(title)
+                .font(.caption2)
+                .foregroundColor(.black)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 10)
+        .background(Color.gray.opacity(0.08))
+        .cornerRadius(14)
     }
 }
 

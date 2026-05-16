@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 
 struct ProfileView: View {
-    @Environment(AppSession.self) private var session
+    @EnvironmentObject private var session: AppSession
     @State private var showEdit = false
     @State private var showShareSheet = false
     @State private var shareURL: URL?
@@ -21,28 +21,28 @@ struct ProfileView: View {
             List {
                 if let email = session.currentUserEmail, let p = session.profile(for: email) {
                     Section {
-                        HStack(spacing: 12) {
-                            ZStack {
-                                Circle()
-                                    .fill(Color.blue.opacity(0.15))
-                                    .frame(width: 56, height: 56)
-                                Text(p.fullName.split(separator: " ").first.map(String.init)?.prefix(1) ?? "U")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.blue)
-                            }
+                        VStack(alignment: .leading, spacing: 16) {
+                            HStack(spacing: 12) {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color.blue.opacity(0.15))
+                                        .frame(width: 64, height: 64)
+                                    Text(p.fullName.split(separator: " ").first.map(String.init)?.prefix(1) ?? "U")
+                                        .font(.title)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.blue)
+                                }
 
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(p.fullName)
-                                    .font(.headline)
-                                Text("Perfil registrado")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            }
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(p.fullName)
+                                        .font(.headline)
+                                    Text("Instituto Tecnológico de Tuxtla Gutiérrez")
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
 
-                            Spacer()
+                                Spacer()
 
-                            VStack(alignment: .trailing, spacing: 6) {
                                 Button {
                                     showEdit = true
                                 } label: {
@@ -50,13 +50,52 @@ struct ProfileView: View {
                                         .foregroundColor(.blue)
                                 }
                                 .buttonStyle(.borderless)
+                            }
 
-                                let done = session.totalRegisteredHours(for: email)
-                                Text(String(format: "%.0f h", done))
-                                    .font(.caption2)
-                                    .padding(.vertical, 4)
-                                    .padding(.horizontal, 8)
-                                    .background(Capsule().fill(Color.blue.opacity(0.12)))
+                            Divider()
+
+                            VStack(alignment: .leading, spacing: 12) {
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text("Control / ID")
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                        Text(p.controlNumber)
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                    }
+                                    Spacer()
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text("Carrera")
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                        Text(p.career)
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                    }
+                                }
+
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text("Semestre")
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                        Text("\(p.semester)")
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                    }
+                                    Spacer()
+                                    VStack(alignment: .trailing, spacing: 2) {
+                                        Text("Horas registradas")
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                        let done = session.totalRegisteredHours(for: email)
+                                        Text(String(format: "%.1f h", done))
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                            .foregroundColor(.blue)
+                                    }
+                                }
                             }
                         }
                         .padding(.vertical, 8)
@@ -265,3 +304,23 @@ private struct ShareSheet: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
+
+#if DEBUG
+#Preview("Perfil") {
+    let session = AppSession()
+    let testProfile = StudentProfile(
+        controlNumber: "22210XXX",
+        fullName: "Juan Pérez García",
+        career: "Ingeniería en Sistemas Computacionales",
+        semester: 5,
+        requiredServiceHours: 480,
+        serviceLocation: "Biblioteca Central",
+        email: "juan.perez@example.com",
+        serviceStartDate: Calendar.current.date(byAdding: .month, value: -4, to: Date()) ?? Date()
+    )
+    _ = session.signUp(profile: testProfile, password: "123456", logInAfter: true)
+    
+    return ProfileView()
+        .environment(session)
+}
+#endif

@@ -8,11 +8,33 @@
 
 /* Begin PBXFileReference section */
 		FB9A132E2FAB95B40028A7AC /* bibliocheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bibliocheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F00000000000000000000001 /* AppSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppSession.swift; path = AppSession.swift; sourceTree = "<group>"; };
+		F00000000000000000000002 /* AttendanceHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AttendanceHistoryView.swift; path = AttendanceHistoryView.swift; sourceTree = "<group>"; };
+		F00000000000000000000003 /* HomeDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeDashboardView.swift; path = HomeDashboardView.swift; sourceTree = "<group>"; };
+		F00000000000000000000004 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		F00000000000000000000005 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainTabView.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		F00000000000000000000006 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileEditView.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
+		F00000000000000000000007 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileView.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		F00000000000000000000008 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QRScannerView.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
+		F00000000000000000000009 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterView.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		F0000000000000000000000A /* bibliocheckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = bibliocheckApp.swift; path = bibliocheckApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		FB9A13302FAB95B40028A7AC /* bibliocheck */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			children = (
+				F00000000000000000000001 /* AppSession.swift */,
+				F00000000000000000000002 /* AttendanceHistoryView.swift */,
+				F00000000000000000000003 /* HomeDashboardView.swift */,
+				F00000000000000000000004 /* LoginView.swift */,
+				F00000000000000000000005 /* MainTabView.swift */,
+				F00000000000000000000006 /* ProfileEditView.swift */,
+				F00000000000000000000007 /* ProfileView.swift */,
+				F00000000000000000000008 /* QRScannerView.swift */,
+				F00000000000000000000009 /* RegisterView.swift */,
+				F0000000000000000000000A /* bibliocheckApp.swift */,
+			);
 			path = bibliocheck;
 			sourceTree = "<group>";
 		};
@@ -46,6 +68,19 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXBuildFile section */
+		B00000000000000000000001 /* AppSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000001 /* AppSession.swift */; };
+		B00000000000000000000002 /* AttendanceHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000002 /* AttendanceHistoryView.swift */; };
+		B00000000000000000000003 /* HomeDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000003 /* HomeDashboardView.swift */; };
+		B00000000000000000000004 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000004 /* LoginView.swift */; };
+		B00000000000000000000005 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000005 /* MainTabView.swift */; };
+		B00000000000000000000006 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000006 /* ProfileEditView.swift */; };
+		B00000000000000000000007 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000007 /* ProfileView.swift */; };
+		B00000000000000000000008 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000008 /* QRScannerView.swift */; };
+		B00000000000000000000009 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000009 /* RegisterView.swift */; };
+		B0000000000000000000000A /* bibliocheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000000A /* bibliocheckApp.swift */; };
+/* End PBXBuildFile section */
 
 /* Begin PBXNativeTarget section */
 		FB9A132D2FAB95B40028A7AC /* bibliocheck */ = {
@@ -119,6 +154,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B00000000000000000000001 /* AppSession.swift in Sources */,
+				B00000000000000000000002 /* AttendanceHistoryView.swift in Sources */,
+				B00000000000000000000003 /* HomeDashboardView.swift in Sources */,
+				B00000000000000000000004 /* LoginView.swift in Sources */,
+				B00000000000000000000005 /* MainTabView.swift in Sources */,
+				B00000000000000000000006 /* ProfileEditView.swift in Sources */,
+				B00000000000000000000007 /* ProfileView.swift in Sources */,
+				B00000000000000000000008 /* QRScannerView.swift in Sources */,
+				B00000000000000000000009 /* RegisterView.swift in Sources */,
+				B0000000000000000000000A /* bibliocheckApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
