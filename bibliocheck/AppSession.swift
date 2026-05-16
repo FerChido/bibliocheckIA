@@ -148,8 +148,14 @@ final class AppSession {
     init() {
         do {
             let schema = Schema([BiblioUser.self, BiblioTimePunch.self])
-            let config = ModelConfiguration("bibliocheck.store")
-            let created = try ModelContainer(for: schema, configurations: [config])
+            let created: ModelContainer
+            if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
+                // Para previews, evita crear un store persistente (usa configuración por defecto).
+                created = try ModelContainer(for: schema)
+            } else {
+                let config = ModelConfiguration("bibliocheck.store")
+                created = try ModelContainer(for: schema, configurations: [config])
+            }
             container = created
             context = ModelContext(created)
             context.autosaveEnabled = true
