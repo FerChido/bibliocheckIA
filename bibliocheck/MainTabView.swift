@@ -3,7 +3,7 @@ import VisionKit
 import UIKit
 
 struct MainTabView: View {
-    @Environment(AppSession.self) private var session
+    @EnvironmentObject private var session: AppSession
 
     var body: some View {
         TabView {
@@ -29,6 +29,6 @@ struct MainTabView: View {
 #if DEBUG
 #Preview("Tabs") {
     MainTabView()
-        .environment(AppSession())
+        .environmentObject(AppSession())
 }
 #endif

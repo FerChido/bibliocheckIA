@@ -174,10 +174,10 @@ struct ProfileView: View {
                 }
             }
             .navigationTitle("Perfil")
-            .sheet(isPresented: $showEdit) {
+                .sheet(isPresented: $showEdit) {
                 NavigationStack {
                     EditProfileView()
-                        .environment(session)
+                        .environmentObject(session)
                 }
             }
             .sheet(isPresented: $showShareSheet, onDismiss: { shareURL = nil }) {
@@ -321,6 +321,6 @@ private struct ShareSheet: UIViewControllerRepresentable {
     _ = session.signUp(profile: testProfile, password: "123456", logInAfter: true)
     
     return ProfileView()
-        .environment(session)
+        .environmentObject(session)
 }
 #endif
