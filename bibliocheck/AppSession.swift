@@ -288,6 +288,42 @@ final class AppSession: ObservableObject {
         UserDefaults.standard.removeObject(forKey: sessionKey)
     }
 
+    // MARK: - Admin
+    
+    func allUsers() -> [StudentProfile] {
+        var descriptor = FetchDescriptor<BiblioUser>()
+        descriptor.sortBy = [SortDescriptor(\.email)]
+        let users = try? context.fetch(descriptor)
+        return (users ?? []).map { u in
+            StudentProfile(
+                controlNumber: u.controlNumber,
+                fullName: u.fullName,
+                career: u.career,
+                semester: u.semester,
+                requiredServiceHours: u.requiredServiceHours,
+                serviceLocation: u.serviceLocation,
+                email: u.email,
+                serviceStartDate: u.serviceStartDate
+            )
+        }
+    }
+    
+    func userDetails(email: String) -> (profile: StudentProfile, punchesCount: Int, totalHours: Double)? {
+        guard let u = fetchUser(email: email) else { return nil }
+        let profile = StudentProfile(
+            controlNumber: u.controlNumber,
+            fullName: u.fullName,
+            career: u.career,
+            semester: u.semester,
+            requiredServiceHours: u.requiredServiceHours,
+            serviceLocation: u.serviceLocation,
+            email: u.email,
+            serviceStartDate: u.serviceStartDate
+        )
+        let hours = totalRegisteredHours(for: email)
+        return (profile, u.punches.count, hours)
+    }
+
     // MARK: - Fichajes / QR
 
     func punches(for email: String) -> [TimePunch] {

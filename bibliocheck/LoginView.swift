@@ -11,9 +11,9 @@ struct LoginView: View {
         NavigationStack {
             ZStack {
                 LinearGradient(
-                    gradient: Gradient(colors: [Color.blue.opacity(0.9), Color.white]),
-                    startPoint: .top,
-                    endPoint: .bottom
+                    gradient: Gradient(colors: [Color(red: 0.05, green: 0.25, blue: 0.6), Color(red: 0.1, green: 0.4, blue: 0.8)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
                 )
                 .ignoresSafeArea()
 
@@ -30,6 +30,10 @@ struct LoginView: View {
                             .font(.title2)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
+                        
+                        Text("Gestión de servicio social")
+                            .font(.caption)
+                            .foregroundColor(.white.opacity(0.8))
                     }
 
                     Text("INICIA SESIÓN")
@@ -40,8 +44,8 @@ struct LoginView: View {
                     VStack(spacing: 15) {
                         TextField("Correo electrónico", text: $email)
                             .padding()
-                            .background(Color.white)
-                            .cornerRadius(10)
+                            .background(Color.white.opacity(0.95))
+                            .cornerRadius(12)
                             .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.never)
 #if canImport(UIKit)
@@ -63,8 +67,8 @@ struct LoginView: View {
                             }
                         }
                         .padding()
-                        .background(Color.white)
-                        .cornerRadius(10)
+                        .background(Color.white.opacity(0.95))
+                        .cornerRadius(12)
                     }
                     .padding(.horizontal, 30)
 
@@ -76,16 +80,26 @@ struct LoginView: View {
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.blue)
+                            .background(Color(red: 0.0, green: 0.15, blue: 0.5))
                             .cornerRadius(25)
                     }
                     .padding(.horizontal, 50)
 
-                    NavigationLink("CREAR CUENTA") {
-                        RegisterView()
+                    VStack(spacing: 10) {
+                        NavigationLink("CREAR CUENTA") {
+                            RegisterView()
+                        }
+                        .font(.footnote)
+                        .foregroundColor(.white.opacity(0.9))
+                        .fontWeight(.semibold)
+
+                        NavigationLink("ACCESO ADMIN") {
+                            AdminView()
+                        }
+                        .font(.footnote)
+                        .foregroundColor(.white.opacity(0.9))
+                        .fontWeight(.semibold)
                     }
-                    .font(.footnote)
-                    .foregroundColor(.blue)
 
                     Spacer()
                 }
@@ -119,6 +133,8 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
-        .environmentObject(AppSession())
+    NavigationStack {
+        LoginView()
+            .environmentObject(AppSession())
+    }
 }
